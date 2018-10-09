@@ -24,7 +24,7 @@ var connection = mysql.createConnection({
 });
 
 app.get("/", function(req, res) {
-  connection.query("SELECT * FROM events", function(err, result)
+  connection.query("SELECT * FROM events ORDER BY start_date DESC", function(err, result)
 	{
     res.render("pages/index", {
       siteTitle: siteTitle,
