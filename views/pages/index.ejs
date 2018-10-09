@@ -10,7 +10,7 @@
 
   <div class="row">
     <div class="col-sm-12">
-      <% if (items.length > 0) { %>
+      <% if (items) { %>
         <table class="table whiteBG">
           <thead>
             <tr>
@@ -29,7 +29,7 @@
                 <td><%= item.location %></td>
                 <td><%= item.desc %></td>
                 <td class="text-center">
-                  <a href="/events/<%= item.id %>" class="btn btn-sm btn-success">Edit</a>
+                  <a href="/events/<%= item.id %>/edit" class="btn btn-sm btn-success">Edit</a>
                   <a href="/events/delete/<%= item.id %>" class="btn btn-sm btn-danger">Delete</a>
                 </td>
               </tr>

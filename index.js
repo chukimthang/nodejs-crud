@@ -59,6 +59,38 @@ app.post("/events/create", function(req, res) {
   });
 });
 
+// edit
+app.get("/events/:id/:edit", function(req, res) {
+  connection.query("SELECT * FROM events WHERE id = ? ", req.params.id, function(err, result)
+	{
+    result[0].start_date = dateFormat(result[0].start_date, "yyyy-mm-dd")
+    result[0].end_date = dateFormat(result[0].end_date, "yyyy-mm-dd")
+
+    res.render('pages/edit', {
+      siteTitle: siteTitle,
+      pageTitle: "Event Edit: " + result[0].name,
+      item: result
+    });
+  });	
+});
+
+// update
+app.post("/events/:id/:update", function(req, res) {
+  connection.query("UPDATE events SET name = ?, desc = ? , location = ? , start_date = ? , end_date = ? WHERE id = ? ", [ req.body.name, req.body.desc , req.body.location, req.body.start_date, req.body.end_date, req.params.id ] , function(err, result) 
+  {
+		if (result.affectedRows) {
+      res.redirect(baseURL);
+    }
+  });
+});
+
+app.post("/events/:id/:update", function(req, res) {
+  connection.query("UPDATE events SET name = ?, desc = ? , location = ? , start_date = ? , end_date = ? WHERE id = ? ", [ req.body.name, req.body.desc , req.body.location, req.body.start_date, req.body.end_date, req.params.id ] , function(err, result) 
+	{
+      res.redirect(baseURL);
+  });	
+})
+
 const siteTitle = "NodeJs Example";
 const baseURL = "http://localhost:3000"
 
