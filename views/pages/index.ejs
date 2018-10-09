@@ -1,54 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <% include ../partials/head %>
-</head>
-<body>
-  <% include ../partials/navbar %>
+<% include ../partials/header %>
 
-  <div class="container" style="margin-top: 30px;">
-    <div class="row">
-      <div class="col-sm-12">
-        <a href="/events/add" class="btn btn-info">Add new</a>
-      </div>
+<div class="container" style="margin-top: 30px;">
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="/events/new" class="btn btn-info">Add new</a>
     </div>
-    <br>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <% if (items.length > 0) { %>
-          <table class="table whiteBG">
-            <thead>
-              <tr>
-                <th class="id">Id</th>
-                <th class="name">Name</th>
-                <th class="location">Location</th>
-                <th class="description">Description</th>
-                <th class="actions text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% items.forEach(function(item) { %>
-                <tr>
-                  <td><strong><%= item.id %></strong></td>
-                  <td><%= item.name %></td>
-                  <td><%= item.location %></td>
-                  <td><%= item.desc %></td>
-                  <td class="text-center">
-                    <a href="/events/<%= item.id %>" class="btn btn-sm btn-success">Edit</a>
-                    <a href="/events/delete/<%= item.id %>" class="btn btn-sm btn-danger">Delete</a>
-                  </td>
-                </tr>
-              <% }); %>
-            </tbody>
-          </table>
-        <% } else { %>
-          <h6>Not record</h6>
-        <% } %>
-      </div>
-    </div>      
   </div>
+  <br>
 
-  <% include ../partials/footer %>
-</body>
-</html>
+  <div class="row">
+    <div class="col-sm-12">
+      <% if (items.length > 0) { %>
+        <table class="table whiteBG">
+          <thead>
+            <tr>
+              <th class="id">Id</th>
+              <th class="name">Name</th>
+              <th class="location">Location</th>
+              <th class="description">Description</th>
+              <th class="actions text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% items.forEach(function(item) { %>
+              <tr>
+                <td><strong><%= item.id %></strong></td>
+                <td><%= item.name %></td>
+                <td><%= item.location %></td>
+                <td><%= item.desc %></td>
+                <td class="text-center">
+                  <a href="/events/<%= item.id %>" class="btn btn-sm btn-success">Edit</a>
+                  <a href="/events/delete/<%= item.id %>" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <h6>Not record</h6>
+      <% } %>
+    </div>
+  </div>      
+</div>
+
+<% include ../partials/footer %>

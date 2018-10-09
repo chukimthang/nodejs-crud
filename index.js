@@ -23,6 +23,7 @@ var connection = mysql.createConnection({
 	database : "node_tutorial_db"
 });
 
+// index
 app.get("/", function(req, res) {
   connection.query("SELECT * FROM events ORDER BY start_date DESC", function(err, result)
 	{
@@ -31,6 +32,30 @@ app.get("/", function(req, res) {
       pageTitle: "Event Listing",
       items: result
     });
+  });
+});
+
+// new
+app.get("/events/new", function(req, res) {
+  res.render("pages/new", {
+    siteTitle: siteTitle,
+    pageTitle: "Event Add",
+    items: ""
+  });
+});
+
+// create
+app.post("/events/create", function(req, res) {
+  var insertEventData = {
+    name: req.body.name,
+    location: req.body.location,
+    desc: req.body.desc,
+    start_date: dateFormat(req.body.start_date, 'yyyy-mm-dd'),
+    end_date: dateFormat(req.body.end_date, 'yyyy-mm-dd')
+  }	
+
+  connection.query("INSERT INTO events SET ? ", insertEventData , function(err, result){    
+    res.redirect(baseURL);
   });
 });
 
