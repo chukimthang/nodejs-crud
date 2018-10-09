@@ -50,8 +50,8 @@ app.post("/events/create", function(req, res) {
     name: req.body.name,
     location: req.body.location,
     desc: req.body.desc,
-    start_date: dateFormat(req.body.start_date, 'yyyy-mm-dd'),
-    end_date: dateFormat(req.body.end_date, 'yyyy-mm-dd')
+    start_date: dateFormat(req.body.start_date, "yyyy-mm-dd"),
+    end_date: dateFormat(req.body.end_date, "yyyy-mm-dd")
   }	
 
   connection.query("INSERT INTO events SET ? ", insertEventData , function(err, result){    
@@ -60,13 +60,13 @@ app.post("/events/create", function(req, res) {
 });
 
 // edit
-app.get("/events/:id/:edit", function(req, res) {
+app.get("/events/:id/edit", function(req, res) {
   connection.query("SELECT * FROM events WHERE id = ? ", req.params.id, function(err, result)
 	{
     result[0].start_date = dateFormat(result[0].start_date, "yyyy-mm-dd")
     result[0].end_date = dateFormat(result[0].end_date, "yyyy-mm-dd")
 
-    res.render('pages/edit', {
+    res.render("pages/edit", {
       siteTitle: siteTitle,
       pageTitle: "Event Edit: " + result[0].name,
       item: result
@@ -75,21 +75,26 @@ app.get("/events/:id/:edit", function(req, res) {
 });
 
 // update
-app.post("/events/:id/:update", function(req, res) {
-  connection.query("UPDATE events SET name = ?, desc = ? , location = ? , start_date = ? , end_date = ? WHERE id = ? ", [ req.body.name, req.body.desc , req.body.location, req.body.start_date, req.body.end_date, req.params.id ] , function(err, result) 
-  {
-		if (result.affectedRows) {
-      res.redirect(baseURL);
-    }
-  });
-});
+app.post("/events/:id/update", function(req, res) {
+  var query =  "UPDATE `events` SET ";
+      query += "  `name` = '" + req.body.name + "',";
+      query += "  `start_date` = '" + req.body.start_date + "',";
+      query += "  `end_date` = '" + req.body.end_date + "',";
+      query += "  `desc` = '" + req.body.desc + "',";
+      query += "  `location` = '" + req.body.location + "'";
+      query += "WHERE `events`.`id` = " + req.body.id + "";
 
-app.post("/events/:id/:update", function(req, res) {
-  connection.query("UPDATE events SET name = ?, desc = ? , location = ? , start_date = ? , end_date = ? WHERE id = ? ", [ req.body.name, req.body.desc , req.body.location, req.body.start_date, req.body.end_date, req.params.id ] , function(err, result) 
-	{
-      res.redirect(baseURL);
-  });	
+  connection.query(query, function(err, result) {
+    res.redirect("/");
+  });
 })
+
+// delete
+app.get("/events/:id/delete" , function(req, res){
+  connection.query("DELETE FROM events WHERE id = ? ", req.params.id , function(err, result) {
+    res.redirect("/");
+	});
+});
 
 const siteTitle = "NodeJs Example";
 const baseURL = "http://localhost:3000"
