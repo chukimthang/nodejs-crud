@@ -1,17 +1,21 @@
-// var http = require("http");
-
-// http.createServer(function (request, response) {
-//    response.writeHead(200, {"Content-Type": "text/plain"});
-//    response.end("Hello World\n");
-// }).listen(8000);
-
-// console.log("Server dang chay tai http://127.0.0.1:8000/");
-
-var http = require('http');
-var express = require('express');
+var http = require("http");
+var express = require("express");
 var app = express();
-var mysql = require('mysql');
-var bodyParser = require('body-parser');
+var mysql = require("mysql");
+var bodyParser = require("body-parser");
 
-// parser all form data
 app.use(bodyParser.urlencoded({ extended: true }));
+
+var dateFormat = require("dateformat");
+var now = new Date();
+
+app.set("view engine", "ejs");
+
+app.use("/js", express.static(__dirname + "/node_modules/bootstrap/dist/js"));
+app.use("/js", express.static(__dirname + "/node_modules/tether/dist/js"));
+app.use("/js", express.static(__dirname + "/node_modules/jquery/dist"));
+app.use("/css", express.static(__dirname + "/node_modules/bootstrap/dist/css"));
+
+app.listen(8080, "localhost", function(req, res){
+	console.log("Listening 8080");
+});

@@ -1,6 +1,9 @@
-#Nodejs
+# Node JS, MySQL
 - Search package: https://www.npmjs.com/
+
 - npm init: create package.json
+- npm update: update package.json
+
 - npm install --save express
 - npm install --save ejs
 - npm install --save bootstrap
