@@ -3,13 +3,14 @@
 <div class="container" style="margin-top: 30px;">
   <div class="row">
     <div class="col-sm-10">
-      <form class="form-horizontal" method="post" action="/events/create">
+      <form class="form-horizontal" method="post" action="/events/<%= item[0].id %>/update">
+        <input type="hidden" name="id" value="<%= item[0].id %>" />
 
         <div class="form-group">
           <label for="name" class="col-sm-2 control-label">
             <strong>Name</strong></label>
           <div class="col-sm-10">
-            <input type="text" name="name" class="form-control" id="name" value="">
+            <input type="text" name="name" class="form-control" id="name" value="<%= item[0].name %>">
           </div>
         </div>
 
@@ -17,7 +18,7 @@
           <label for="name" class="col-sm-2 control-label">
             <strong>Start Date</strong></label>
           <div class="col-sm-10">
-            <input type="date" name="start_date" class="form-control" id="start_date" value="">
+            <input type="date" name="start_date" class="form-control" id="start_date"  value="<%= item[0].start_date %>">
           </div>
         </div>
 
@@ -25,7 +26,7 @@
           <label for="name" class="col-sm-2 control-label">
             <strong>End Date</strong></label>
           <div class="col-sm-10">
-            <input type="date" name="end_date" class="form-control" id="end_date" value="">
+            <input type="date" name="end_date" class="form-control" id="end_date" value="<%= item[0].end_date %>">
           </div>
         </div>
         
@@ -33,7 +34,7 @@
           <label for="location" class="col-sm-2 control-label">
             <strong>Location</strong></label>
           <div class="col-sm-10">
-            <textarea name="location" id="location"  class="form-control" cols="30" rows="2"></textarea>
+            <textarea name="location" id="location"  class="form-control" cols="30" rows="2"><%= item[0].location %></textarea>
           </div>
         </div>
 
@@ -41,7 +42,7 @@
           <label for="desc" class="col-sm-2 control-label">
             <strong>Description</strong></label>
           <div class="col-sm-10">
-            <textarea name="desc" id="desc"  class="form-control" cols="30" rows="2"></textarea>
+            <textarea name="desc" id="desc"  class="form-control" cols="30" rows="2"><%= item[0].desc %></textarea>
           </div>
         </div>
 
